@@ -2,7 +2,7 @@
 
 > Tool 1 of 5 · AGWANE Capital PE Portfolio
 
-**Live demo:** https://YOUR_USERNAME.github.io/agwane-Agwane-lbo-model
+**Live demo:** https://spocha27.github.io/agwane-Agwane-lbo-model
 
 ## What it does
 Interactive leveraged buyout model built in vanilla JS/Chart.js.
