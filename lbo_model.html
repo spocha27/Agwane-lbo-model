@@ -1,0 +1,416 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<h2 class="sr-only">AGWANE Capital LBO Model — interactive private equity leveraged buyout analysis tool with Claude AI, Excel and Word export</h2>
+<style>
+:root{--bg:#07091c;--s0:#0b1025;--s1:#101828;--s2:#182038;--bd:rgba(255,255,255,.07);--bs:rgba(255,255,255,.14);--ba:#c9a453;--tt:#dcd9d0;--t2:#7090b8;--tm:#3a4e6a;--ta:#c9a453;--ts:#1ec87a;--tw:#e8a020;--td:#e04040;--rr:7px;--mn:'JetBrains Mono',monospace;--ss:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tt);font-family:var(--ss);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 0 13px;border-bottom:1px solid var(--bd);margin-bottom:14px}
+.bmk{color:var(--ta);font-size:15px;margin-right:7px}
+.bsub{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);font-weight:500}
+.dtl{font-size:17px;font-weight:300;color:var(--tt);margin:3px 0 0}
+.dsb{font-size:10.5px;color:var(--tm);font-family:var(--mn);margin-top:2px}
+.xrow{display:flex;gap:7px;align-items:center;flex-shrink:0;padding-top:2px}
+.xb{background:var(--s1);border:.5px solid var(--bs);border-radius:var(--rr);padding:5px 13px;cursor:pointer;font-size:12px;color:var(--tt);font-family:var(--ss);font-weight:500;transition:all .15s;white-space:nowrap}
+.xb:hover{background:var(--s2);border-color:var(--ba);color:var(--ta)}
+.xb.gold{background:rgba(201,164,83,.1);border:.5px solid rgba(201,164,83,.3);color:var(--ta)}
+.xb.gold:hover{background:rgba(201,164,83,.2)}
+.xb:disabled{opacity:.4;cursor:wait}
+.bdg{font-size:10px;font-family:var(--mn);padding:2px 9px;border-radius:3px;letter-spacing:.07em;font-weight:600;background:rgba(201,164,83,.1);color:var(--ta);border:.5px solid rgba(201,164,83,.22)}
+.kbar{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.kc{background:var(--s0);border:.5px solid var(--bd);border-radius:var(--rr);padding:11px 13px;transition:border-color .2s}
+.kc:hover{border-color:var(--bs)}
+.kc.gl{border-left:2px solid var(--ta)}
+.kv{font-size:20px;font-weight:400;font-family:var(--mn);line-height:1.1;color:var(--tt)}
+.kv.g{color:var(--ts)}.kv.a{color:var(--ta)}
+.kl{font-size:10px;color:var(--tm);margin-top:4px;letter-spacing:.04em;font-family:var(--mn)}
+.tabs{display:flex;border-bottom:.5px solid var(--bd);margin-bottom:14px;overflow-x:auto}
+.tb{background:none;border:none;border-bottom:2px solid transparent;padding:8px 16px;cursor:pointer;font-size:12px;color:var(--t2);font-family:var(--ss);font-weight:500;white-space:nowrap;transition:all .15s;letter-spacing:.02em}
+.tb:hover{color:var(--tt)}
+.tb.on{color:var(--tt);border-bottom-color:var(--ta)}
+.sl{font-size:10px;color:var(--tm);text-transform:uppercase;letter-spacing:.09em;font-family:var(--mn);font-weight:500;margin:0 0 10px}
+.ft{width:100%;border-collapse:collapse;font-size:12.5px}
+.ft th{text-align:right;padding:5px 10px;font-size:10.5px;color:var(--tm);font-weight:500;border-bottom:.5px solid var(--bs);font-family:var(--mn);white-space:nowrap}
+.ft th.l,.ft td.l{text-align:left}
+.ft td{text-align:right;padding:5px 10px;border-bottom:.5px solid var(--bd);font-family:var(--mn);font-size:12px;white-space:nowrap;color:var(--tt)}
+.ft td.l{color:var(--t2);font-family:var(--ss);font-size:12.5px}
+.ft tr.sub td{border-top:.5px solid var(--bs);font-weight:500;background:rgba(255,255,255,.02)}
+.ft tr.tot td{border-top:1px solid var(--bs);font-weight:600}
+.ft tr:last-child td{border-bottom:none}
+.ft tr:hover td{background:rgba(255,255,255,.02)}
+.inp{background:var(--s1);border:.5px solid var(--bs);border-radius:5px;padding:3px 8px;color:var(--tt);font-size:12px;font-family:var(--mn);width:88px;text-align:right;transition:border-color .15s}
+.inp:focus{outline:none;border-color:var(--ba)}
+.inp.w{width:148px;text-align:left}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.crd{background:var(--s0);border:.5px solid var(--bd);border-radius:var(--rr);padding:12px 14px}
+.sc{background:var(--s0);border:.5px solid var(--bd);border-radius:10px;padding:16px;text-align:center;transition:border-color .2s}
+.sc.bs{border:.5px solid rgba(201,164,83,.35);background:rgba(201,164,83,.04)}
+.aib{background:rgba(201,164,83,.09);border:.5px solid rgba(201,164,83,.28);border-radius:var(--rr);padding:8px 16px;cursor:pointer;font-size:12.5px;color:var(--ta);font-weight:500;font-family:var(--ss);width:100%;transition:all .15s;margin-bottom:0}
+.aib:hover{background:rgba(201,164,83,.18)}
+.aib:disabled{opacity:.4;cursor:wait}
+.mob{background:var(--s0);border:.5px solid var(--bd);border-radius:var(--rr);padding:15px;font-size:12.5px;line-height:1.8;color:var(--t2);white-space:pre-wrap;font-family:var(--ss);min-height:180px;display:none;margin-top:12px}
+.qac{background:var(--s0);border:.5px solid var(--bd);border-radius:var(--rr);padding:12px 14px;margin-bottom:8px;font-size:12.5px;line-height:1.7;color:var(--t2);font-family:var(--ss)}
+.qaq{color:var(--ta);font-size:10px;font-family:var(--mn);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;font-weight:500}
+.qkb{background:var(--s1);border:.5px solid var(--bd);border-radius:5px;padding:5px 11px;cursor:pointer;font-size:11.5px;color:var(--t2);font-family:var(--ss);transition:all .15s}
+.qkb:hover{border-color:var(--ba);color:var(--ta)}
+.qin{width:100%;background:var(--s1);border:.5px solid var(--bs);border-radius:var(--rr);padding:10px 12px;color:var(--tt);font-size:13px;font-family:var(--ss);resize:vertical;height:86px;line-height:1.5}
+.qin:focus{outline:none;border-color:var(--ba)}
+.ch{position:relative;height:192px;margin-top:14px}
+.chs{position:relative;height:150px}
+.spin{display:inline-block;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+
+<div style="padding:.75rem 0">
+<div class="hdr">
+  <div>
+    <div><span class="bmk">◆</span><span class="bsub">AGWANE CAPITAL · PE PORTFOLIO</span></div>
+    <div class="dtl" id="dtl">Leveraged Buyout Model</div>
+    <div class="dsb" id="dsb">Loading model…</div>
+  </div>
+  <div class="xrow">
+    <button class="xb" onclick="exportXLSX()"><i class="ti ti-table-export" aria-hidden="true"></i> Excel</button>
+    <button class="xb gold" id="wbtn" onclick="exportDOCX()"><i class="ti ti-file-word" aria-hidden="true"></i> Word</button>
+    <span class="bdg">LBO</span>
+  </div>
+</div>
+
+<div class="kbar" id="kbar"></div>
+
+<nav class="tabs">
+  <button class="tb on" onclick="showTab('s',this)">Deal structure</button>
+  <button class="tb" onclick="showTab('d',this)">Debt schedule</button>
+  <button class="tb" onclick="showTab('p',this)">Projections</button>
+  <button class="tb" onclick="showTab('r',this)">Exit & returns</button>
+  <button class="tb" onclick="showTab('a',this)">✦ AI analysis</button>
+</nav>
+
+<div id="ts">
+<div class="g2">
+<div>
+  <p class="sl">Entry assumptions</p>
+  <table class="ft"><tbody>
+    <tr><td class="l">Company</td><td colspan="2"><input class="inp w" id="i-nm" value="Kalahari Mfg Ltd" oninput="rc()"></td></tr>
+    <tr><td class="l">LTM revenue (BWP M)</td><td><input class="inp" id="i-rv" value="450" oninput="rc()"></td><td class="l" id="evd" style="font-size:11px;color:var(--tm)"></td></tr>
+    <tr><td class="l">LTM EBITDA (BWP M)</td><td><input class="inp" id="i-eb" value="90" oninput="rc()"></td><td class="l" id="mgd" style="font-size:11px;color:var(--tm)"></td></tr>
+    <tr><td class="l">Entry EV/EBITDA</td><td><input class="inp" id="i-em" value="6.5" oninput="rc()"></td><td></td></tr>
+    <tr class="sub"><td class="l">Senior debt (% EV)</td><td><input class="inp" id="i-sp" value="60" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Senior rate (%)</td><td><input class="inp" id="i-sr" value="9.5" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Mandatory amort. (% p.a.)</td><td><input class="inp" id="i-am" value="5" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Mezzanine (% EV)</td><td><input class="inp" id="i-mp" value="15" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Mezzanine rate (%)</td><td><input class="inp" id="i-mr" value="13.0" oninput="rc()"></td><td></td></tr>
+    <tr class="sub"><td class="l">Revenue growth (% p.a.)</td><td><input class="inp" id="i-rg" value="8" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">EBITDA margin expansion (bps)</td><td><input class="inp" id="i-mx" value="50" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">D&amp;A (% revenue)</td><td><input class="inp" id="i-da" value="8" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Capex (% revenue)</td><td><input class="inp" id="i-cx" value="5" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Tax rate (%)</td><td><input class="inp" id="i-tx" value="22" oninput="rc()"></td><td></td></tr>
+    <tr class="sub"><td class="l">Exit EV/EBITDA (base)</td><td><input class="inp" id="i-xm" value="7.0" oninput="rc()"></td><td></td></tr>
+    <tr><td class="l">Exit year</td><td><input class="inp" id="i-xy" value="5" oninput="rc()"></td><td></td></tr>
+  </tbody></table>
+</div>
+<div>
+  <p class="sl">Sources & uses (BWP M)</p>
+  <table class="ft" style="margin-bottom:16px">
+    <thead><tr><th class="l">Sources</th><th>BWP M</th><th>%</th></tr></thead>
+    <tbody id="sus"></tbody>
+    <thead><tr><th class="l">Uses</th><th>BWP M</th><th>%</th></tr></thead>
+    <tbody id="suu"></tbody>
+  </table>
+  <p class="sl">Entry leverage</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px" id="lvst"></div>
+  <p class="sl">Capital structure</p>
+  <div class="chs"><canvas id="cc" role="img" aria-label="Stacked bar showing capital structure split: senior debt, mezzanine, sponsor equity"></canvas></div>
+</div>
+</div>
+</div>
+
+<div id="td" style="display:none">
+  <p class="sl">Debt schedule & cash flows (BWP M)</p>
+  <div style="overflow-x:auto"><table class="ft"><thead><tr id="dh"></tr></thead><tbody id="db"></tbody></table></div>
+  <div class="ch"><canvas id="dc" role="img" aria-label="Stacked bar chart of debt balance by year with free cash flow line overlay"></canvas></div>
+</div>
+
+<div id="tp" style="display:none">
+  <p class="sl">5-year income statement (BWP M)</p>
+  <div style="overflow-x:auto"><table class="ft"><thead><tr id="ph"></tr></thead><tbody id="pb"></tbody></table></div>
+  <div class="ch"><canvas id="pc" role="img" aria-label="Grouped bar chart showing revenue and EBITDA growth from entry through year 5"></canvas></div>
+</div>
+
+<div id="tr2" style="display:none">
+  <p class="sl">Exit scenarios</p>
+  <div class="g3" id="scc" style="margin-bottom:18px"></div>
+  <div class="g2">
+    <div><p class="sl">Returns summary</p><table class="ft" id="rt"></table></div>
+    <div>
+      <p class="sl">Value creation waterfall — base case (BWP M)</p>
+      <div class="ch"><canvas id="wc" role="img" aria-label="Waterfall chart decomposing equity value creation from EBITDA growth, multiple expansion and debt paydown"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<div id="ta" style="display:none">
+  <div class="g2">
+    <div>
+      <p class="sl">Investment memo generator</p>
+      <p style="font-size:12.5px;color:var(--t2);margin:0 0 12px;line-height:1.6">Claude writes a professional IC-ready memo from your live model. Use <strong style="color:var(--tt);font-weight:500">Word export</strong> to get a formatted .docx.</p>
+      <button class="aib" id="mbtn" onclick="genMemo()">✦ Generate investment memo</button>
+      <div id="mout" class="mob"></div>
+      <button id="cpbtn" style="display:none;margin-top:8px;width:100%" class="xb" onclick="cpMemo()">Copy memo text</button>
+    </div>
+    <div>
+      <p class="sl">Ask Claude about this deal</p>
+      <p style="font-size:12.5px;color:var(--t2);margin:0 0 10px;line-height:1.6">Full deal context loaded. Ask about structure, SADC market, risks, or strategy.</p>
+      <textarea class="qin" id="qin" placeholder="e.g. What are the biggest risks in this capital structure?&#10;How does leverage compare to SADC PE norms?&#10;What exit routes exist for a Botswana manufacturer?"></textarea>
+      <button class="aib" id="abtn" onclick="askC()" style="margin-top:8px">Ask Claude</button>
+      <div id="qaout" style="margin-top:12px;max-height:310px;overflow-y:auto"></div>
+    </div>
+  </div>
+  <div style="margin-top:18px;padding-top:14px;border-top:.5px solid var(--bd)">
+    <p class="sl" style="margin-bottom:8px">Quick prompts</p>
+    <div style="display:flex;flex-wrap:wrap;gap:7px">
+      <button class="qkb" onclick="qa('What are the 3 biggest risks in this deal and how would a PE firm mitigate each?')">Deal risks</button>
+      <button class="qkb" onclick="qa('How does this leverage ratio compare to typical SADC and African PE buyouts?')">Leverage benchmarks</button>
+      <button class="qkb" onclick="qa('What operational value creation levers should management focus on to hit base case EBITDA?')">Value creation levers</button>
+      <button class="qkb" onclick="qa('What are the realistic exit options for this company in Botswana/SADC at year 5?')">Exit options</button>
+      <button class="qkb" onclick="qa('Stress test: revenue growth halves and exit multiple compresses 1 turn. What is the new IRR?')">Stress test</button>
+      <button class="qkb" onclick="qa('Write 3 crisp IC bullets summarising why this deal passes PE investment criteria.')">IC bullets</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const CH={},g=id=>document.getElementById(id),nv=id=>parseFloat(g(id).value)||0;
+const f=(v,d=1)=>(isNaN(v)||!isFinite(v))?'—':v.toFixed(d);
+const fp=v=>(isNaN(v)||!isFinite(v))?'—':(v*100).toFixed(1)+'%';
+const fx=v=>(isNaN(v)||!isFinite(v))?'—':v.toFixed(2)+'×';
+let ST={},memo='';
+
+function irr(fws){
+  let r=.15;
+  for(let i=0;i<400;i++){
+    let n=0,d=0;
+    fws.forEach((c,t)=>{const p=Math.pow(1+r,t);n+=c/p;d-=t*c/(p*(1+r));});
+    if(Math.abs(d)<1e-12)break;
+    const nr=r-n/d;if(Math.abs(nr-r)<1e-10)return nr;
+    r=Math.max(-.99,Math.min(nr,10));
+  }return r;
+}
+function kc(id){if(CH[id]){CH[id].destroy();delete CH[id];}}
+function pal(){return{tx:'#7090b8',gr:'#141e3a',b:'#2a78d6',g:'#1ec87a',a:'#c9a453',r:'#e04040',v:'#4a3aa7'};}
+
+function rc(){
+  const rv=nv('i-rv'),eb=nv('i-eb'),em=nv('i-em'),sp=nv('i-sp')/100,mp=nv('i-mp')/100;
+  const sr=nv('i-sr')/100,mr=nv('i-mr')/100,am=nv('i-am')/100,rg=nv('i-rg')/100;
+  const mx=nv('i-mx')/10000,da=nv('i-da')/100,cx=nv('i-cx')/100,tx=nv('i-tx')/100;
+  const xm=nv('i-xm'),xy=Math.round(Math.min(7,Math.max(3,nv('i-xy'))));
+  const C=pal(),nm=g('i-nm').value;
+  const EV=eb*em,SD=EV*sp,MD=EV*mp,TD=SD+MD;
+  const mg=rv>0?eb/rv:0,txF=EV*.02,finF=TD*.015,tot=EV+txF+finF,eq=tot-SD-MD;
+  g('evd').textContent=`Entry EV: BWP ${f(EV,0)}M`;
+  g('mgd').textContent=rv>0?`(${(mg*100).toFixed(1)}% margin)`:'';
+  g('dtl').textContent=nm||'Leveraged Buyout Model';
+  g('dsb').textContent=`BWP ${f(EV,0)}M Entry EV  ·  ${f(em,1)}× EBITDA  ·  ${(sp*100).toFixed(0)}% Sr / ${(mp*100).toFixed(0)}% Mezz / ${(eq/tot*100).toFixed(0)}% Equity`;
+  const sr_=[['Senior debt (TLB)',SD],['Mezzanine note',MD],['Sponsor equity',eq]];
+  const us_=[['Purchase price (EV)',EV],['Transaction fees (2%)',txF],['Financing fees (1.5%)',finF]];
+  g('sus').innerHTML=sr_.map(([l,v])=>`<tr><td class="l">${l}</td><td>${f(v)}</td><td>${f(v/tot*100)}%</td></tr>`).join('')+`<tr class="sub"><td class="l">Total sources</td><td>${f(tot)}</td><td>100%</td></tr>`;
+  g('suu').innerHTML=us_.map(([l,v])=>`<tr><td class="l">${l}</td><td>${f(v)}</td><td>${f(v/tot*100)}%</td></tr>`).join('')+`<tr class="tot"><td class="l">Total uses</td><td>${f(tot)}</td><td>100%</td></tr>`;
+  g('lvst').innerHTML=[['Entry EV',`BWP ${f(EV,0)}M`],['Equity check',`BWP ${f(eq,0)}M`],['Debt/EBITDA',fx(TD/eb)],['Debt/EV',fp(TD/EV)]].map(([l,v])=>`<div class="crd"><div style="font-size:14px;font-weight:400;font-family:var(--mn);color:var(--tt)">${v}</div><div style="font-size:10px;color:var(--tm);margin-top:3px">${l}</div></div>`).join('');
+  kc('cc');const ccE=g('cc');
+  if(ccE)CH.cc=new Chart(ccE,{type:'bar',data:{labels:[''],datasets:[{label:`Senior (${(sp*100).toFixed(0)}%)`,data:[+SD.toFixed(1)],backgroundColor:C.b,borderRadius:4,stack:'s'},{label:`Mezz (${(mp*100).toFixed(0)}%)`,data:[+MD.toFixed(1)],backgroundColor:C.v,borderRadius:4,stack:'s'},{label:`Equity (${(eq/tot*100).toFixed(0)}%)`,data:[+eq.toFixed(1)],backgroundColor:C.a,borderRadius:4,stack:'s'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11},color:C.tx,boxWidth:10,boxHeight:10,padding:12}}},scales:{x:{stacked:true,grid:{color:C.gr},ticks:{color:C.tx,font:{size:11},callback:v=>`BWP ${v}M`}},y:{stacked:true,grid:{display:false},ticks:{display:false}}}}});
+  const projs=Array.from({length:6},(_,yr)=>{const r=rv*Math.pow(1+rg,yr),m=mg+mx*yr,e=r*m,daA=r*da,ebit=e-daA;return{yr,r,m,e,daA,ebit};});
+  let sB=SD;const ds=[];
+  for(let yr=1;yr<=5;yr++){
+    const p=projs[yr],sI=sB*sr,mI=MD*mr,tI=sI+mI,cxA=p.r*cx,ebt=p.ebit-tI;
+    const taxA=Math.max(0,ebt*tx),ni=ebt-taxA,fcf=ni+p.daA-cxA;
+    const mA=SD*am,rep=Math.min(sB,mA+Math.max(0,fcf-mA)*.5);
+    sB=Math.max(0,sB-rep);
+    ds.push({yr,sB,mB:MD,tD:sB+MD,sI,mI,tI,cxA,ebt,taxA,ni,fcf,rep,...p});
+  }
+  const xd=ds[xy-1],xE=xd.e,xDt=xd.tD;
+  const scens={Bear:{m:xm*.80},Base:{m:xm},Bull:{m:xm*1.25}};
+  Object.values(scens).forEach(s=>{s.ev=xE*s.m;s.proc=Math.max(0,s.ev-xDt);s.moic=s.proc/eq;s.irr=irr([-eq,...Array(xy-1).fill(0),s.proc]);});
+  ST={nm,rv,eb,em,EV,SD,MD,TD,eq,mg,sr,mr,am,rg,mx,da,cx,tx,xm,xy,tot,txF,finF,projs,ds,scens,xE,xDt};
+  g('kbar').innerHTML=[{l:'Entry EV',v:`BWP ${f(EV,0)}M`,c:''},{l:'Total debt',v:`BWP ${f(TD,0)}M`,c:''},{l:'Equity invested',v:`BWP ${f(eq,0)}M`,c:''},{l:'Base IRR',v:fp(scens.Base.irr),c:'g gl'},{l:'Base MOIC',v:fx(scens.Base.moic),c:'a gl'}].map(k=>`<div class="kc ${k.c.includes('gl')?'gl':''}"><div class="kv ${k.c.replace('gl','').trim()}">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
+  const dh=g('dh'),db=g('db');
+  if(dh&&db){
+    dh.innerHTML='<th class="l">Metric</th>'+[1,2,3,4,5].map(y=>`<th>Yr ${y}</th>`).join('');
+    const dr=[['Revenue',d=>f(d.r)],['EBITDA',d=>f(d.e)],['EBIT',d=>f(d.ebit)],['Interest',d=>`(${f(d.tI)})`],['EBT',d=>f(d.ebt)],['Tax',d=>`(${f(d.taxA)})`],['Net income',d=>f(d.ni)],['+D&A',d=>f(d.daA)],['Less: Capex',d=>`(${f(d.cxA)})`],['Free cash flow',d=>f(d.fcf)],['Senior repaid',d=>f(d.rep)],['Senior bal. EOP',d=>f(d.sB)],['Mezz bal. EOP',d=>f(d.mB)],['Total debt EOP',d=>f(d.tD)],['Net debt / EBITDA',d=>fx(d.tD/d.e)]];
+    const ds_=new Set(['Free cash flow','Total debt EOP']);
+    db.innerHTML=dr.map(([l,fn])=>`<tr${ds_.has(l)?' class="sub"':''}><td class="l">${l}</td>${ds.map(d=>`<td>${fn(d)}</td>`).join('')}</tr>`).join('');
+  }
+  kc('dc');const dcE=g('dc');
+  if(dcE)CH.dc=new Chart(dcE,{type:'bar',data:{labels:[1,2,3,4,5].map(y=>`Yr ${y}`),datasets:[{label:'Senior',data:ds.map(d=>+d.sB.toFixed(1)),backgroundColor:C.b,borderRadius:3,stack:'d'},{label:'Mezz',data:ds.map(d=>+d.mB.toFixed(1)),backgroundColor:C.v,borderRadius:3,stack:'d'},{label:'FCF',data:ds.map(d=>+d.fcf.toFixed(1)),type:'line',borderColor:C.g,backgroundColor:C.g+'33',borderWidth:2,pointRadius:4,tension:.3,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11},color:C.tx,boxWidth:10,boxHeight:10,padding:12}}},scales:{x:{grid:{color:C.gr},ticks:{color:C.tx,font:{size:11}}},y:{stacked:true,grid:{color:C.gr},ticks:{color:C.tx,font:{size:11},callback:v=>`${v}M`}},y1:{position:'right',grid:{display:false},ticks:{color:C.g,font:{size:11},callback:v=>`${v}M`}}}}});
+  const ph=g('ph'),pb=g('pb');
+  if(ph&&pb){
+    const aD=[projs[0],...ds];
+    ph.innerHTML='<th class="l">Income statement</th><th>Entry</th>'+[1,2,3,4,5].map(y=>`<th>Yr ${y}</th>`).join('');
+    const pr=[['Revenue',d=>f(d.r)],['YoY growth',(d,i)=>i===0?'—':fp((d.r-aD[i-1].r)/aD[i-1].r)],['EBITDA',d=>f(d.e)],['EBITDA margin',d=>fp(d.m)],['D&A',d=>`(${f(d.daA)})`],['EBIT',d=>f(d.ebit)],['Interest',(d,i)=>i===0?'—':`(${f(d.tI)})`],['EBT',(d,i)=>i===0?'—':f(d.ebt)],['Tax',(d,i)=>i===0?'—':`(${f(d.taxA)})`],['Net income',(d,i)=>i===0?'—':f(d.ni)],['Capex',(d,i)=>i===0?`(${f(d.r*cx)})`:`(${f(d.cxA)})`],['Free cash flow',(d,i)=>i===0?'—':f(d.fcf)]];
+    const sp_=new Set(['EBITDA','Free cash flow']);
+    pb.innerHTML=pr.map(([l,fn])=>`<tr${sp_.has(l)?' class="sub"':''}><td class="l">${l}</td>${aD.map((d,i)=>`<td>${fn(d,i)}</td>`).join('')}</tr>`).join('');
+  }
+  kc('pc');const pcE=g('pc');
+  if(pcE)CH.pc=new Chart(pcE,{type:'bar',data:{labels:['Entry','Yr1','Yr2','Yr3','Yr4','Yr5'],datasets:[{label:'Revenue',data:projs.map(p=>+p.r.toFixed(1)),backgroundColor:C.b+'55',borderColor:C.b,borderWidth:1.5,borderRadius:3},{label:'EBITDA',data:projs.map(p=>+p.e.toFixed(1)),backgroundColor:C.a+'66',borderColor:C.a,borderWidth:1.5,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11},color:C.tx,boxWidth:10,boxHeight:10,padding:12}}},scales:{x:{grid:{color:C.gr},ticks:{color:C.tx,font:{size:11},autoSkip:false}},y:{grid:{color:C.gr},ticks:{color:C.tx,font:{size:11},callback:v=>`BWP ${v}M`}}}}});
+  g('scc').innerHTML=Object.entries(scens).map(([k,s])=>`<div class="sc${k==='Base'?' bs':''}"><p style="font-size:10px;color:var(--tm);text-transform:uppercase;margin:0 0 4px;letter-spacing:.07em;font-family:var(--mn)">${k}</p><p style="font-size:11px;color:var(--tm);margin:0 0 1px">Exit: ${f(s.m,1)}× EBITDA</p><p style="font-size:11px;color:var(--tm);margin:0 0 10px">EV: BWP ${f(s.ev,0)}M</p><div style="font-size:26px;font-weight:400;font-family:var(--mn);color:${s.irr>.2?'var(--ts)':s.irr>.12?'var(--tw)':'var(--td)'}">${fp(s.irr)}</div><div style="font-size:10px;color:var(--tm);margin:2px 0 10px;font-family:var(--mn)">IRR</div><div style="font-size:18px;font-weight:400;font-family:var(--mn);color:var(--tt)">${fx(s.moic)}</div><div style="font-size:10px;color:var(--tm);font-family:var(--mn)">MOIC</div></div>`).join('');
+  const s3=Object.values(scens);
+  g('rt').innerHTML=`<thead><tr><th class="l">Metric</th><th>Bear</th><th>Base</th><th>Bull</th></tr></thead><tbody><tr><td class="l">Exit EV/EBITDA</td>${s3.map(s=>`<td>${fx(s.m)}</td>`).join('')}</tr><tr><td class="l">Exit EBITDA (BWP M)</td>${s3.map(()=>`<td>${f(xE)}</td>`).join('')}</tr><tr><td class="l">Exit EV (BWP M)</td>${s3.map(s=>`<td>${f(s.ev)}</td>`).join('')}</tr><tr><td class="l">Remaining debt (BWP M)</td><td colspan="3" style="text-align:center">${f(xDt)}</td></tr><tr class="sub"><td class="l">Equity proceeds (BWP M)</td>${s3.map(s=>`<td>${f(s.proc)}</td>`).join('')}</tr><tr><td class="l">Equity invested (BWP M)</td><td colspan="3" style="text-align:center">${f(eq)}</td></tr><tr><td class="l">MOIC</td>${s3.map(s=>`<td>${fx(s.moic)}</td>`).join('')}</tr><tr class="tot"><td class="l">IRR</td>${s3.map(s=>`<td style="color:${s.irr>.2?'var(--ts)':s.irr>.12?'var(--tw)':'var(--td)'}">${fp(s.irr)}</td>`).join('')}</tr><tr><td class="l">Exit year</td><td colspan="3" style="text-align:center">Year ${xy}</td></tr></tbody>`;
+  kc('wc');const wcE=g('wc');
+  if(wcE){
+    const base=scens.Base,eg=(xE-eb)*em,me=xE*(xm-em),dp=TD-xDt;
+    const c0=eq,c1=c0+eg,c2=c1+me,c3=c2+dp,maxV=Math.max(base.proc,c3,c0)*1.2;
+    CH.wc=new Chart(wcE,{type:'bar',data:{labels:['Equity in','EBITDA growth','Multiple Δ','Debt paydown','Equity out'],datasets:[{data:[[0,+c0.toFixed(1)],[+c0.toFixed(1),+c1.toFixed(1)],[+Math.min(c1,c2).toFixed(1),+Math.max(c1,c2).toFixed(1)],[+c2.toFixed(1),+c3.toFixed(1)],[0,+base.proc.toFixed(1)]],backgroundColor:[C.r,C.g,me>=0?C.a:C.r,C.b,C.g],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const[lo,hi]=ctx.raw;return`BWP ${(hi-lo).toFixed(1)}M`;}}}},scales:{x:{grid:{display:false},ticks:{color:C.tx,font:{size:11}}},y:{grid:{color:C.gr},ticks:{color:C.tx,font:{size:11},callback:v=>`${v}M`},min:0,max:+maxV.toFixed(0)}}}});
+  }
+}
+
+function showTab(id,btn){
+  ['s','d','p','r2','a'].forEach(t=>{const e=g(`t${t}`);if(e)e.style.display=t===id?'':'none';});
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+}
+
+function ctx(){const s=ST;return `DEAL: ${s.nm} | Sector: Manufacturing | Market: Botswana/SADC\nEntry: BWP ${f(s.EV,0)}M EV @ ${f(s.em,1)}× | LTM Rev BWP ${f(s.rv,0)}M | EBITDA BWP ${f(s.eb,0)}M (${fp(s.mg)})\nCapital structure: Senior BWP ${f(s.SD,0)}M @ ${fp(s.sr)} | Mezz BWP ${f(s.MD,0)}M @ ${fp(s.mr)} | Equity BWP ${f(s.eq,0)}M | Leverage ${fx(s.TD/s.eb)} EBITDA\nProjections: ${fp(s.rg)} rev CAGR | Yr5 Rev BWP ${f(s.projs[5].r,0)}M | Yr5 EBITDA BWP ${f(s.projs[5].e,0)}M\nReturns (exit Yr${s.xy}): Bear ${fp(s.scens.Bear.irr)}/${fx(s.scens.Bear.moic)} | Base ${fp(s.scens.Base.irr)}/${fx(s.scens.Base.moic)} | Bull ${fp(s.scens.Bull.irr)}/${fx(s.scens.Bull.moic)}`;}
+
+async function genMemo(){
+  const btn=g('mbtn'),out=g('mout'),cp=g('cpbtn');
+  btn.disabled=true;btn.innerHTML='<span class="spin">⟳</span> Generating memo…';
+  out.style.display='none';cp.style.display='none';
+  const prompt=`You are a senior PE analyst at AGWANE Capital Inc. writing a formal investment memorandum for an IC meeting.\n\nDEAL DATA:\n${ctx()}\n\nWrite a professional memo with EXACTLY these six labelled sections:\n\nEXECUTIVE SUMMARY\nINVESTMENT THESIS\nDEAL STRUCTURE\nVALUE CREATION PLAN\nKEY RISKS\nRETURN ANALYSIS\n\nProfessional PE language. Reference Botswana/SADC market context. Specific with numbers. 480–540 words total. No preamble.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    memo=data.content?.[0]?.text||'Error generating memo.';
+  }catch(e){memo='Error: Could not reach Claude API.';}
+  out.textContent=memo;out.style.display='block';cp.style.display='block';
+  btn.disabled=false;btn.innerHTML='✦ Regenerate memo';
+}
+
+function cpMemo(){navigator.clipboard.writeText(memo).then(()=>{const b=event.target;b.textContent='✓ Copied!';setTimeout(()=>b.textContent='Copy memo text',2000);});}
+
+async function askC(){
+  const btn=g('abtn'),qIn=g('qin'),out=g('qaout');
+  const q=qIn.value.trim();if(!q)return;
+  btn.disabled=true;btn.innerHTML='<span class="spin">⟳</span> Thinking…';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:`You are a PE analyst at AGWANE Capital. Deal context: ${ctx()}. Answer in 3-4 sentences. Be specific, reference deal numbers and SADC market context.\n\nQuestion: ${q}`}]})});
+    const data=await res.json();
+    const ans=data.content?.[0]?.text||'Error.';
+    const card=document.createElement('div');card.className='qac';
+    card.innerHTML=`<div class="qaq">${q}</div>${ans}`;
+    out.prepend(card);qIn.value='';
+  }catch(e){const c=document.createElement('div');c.className='qac';c.textContent='Error connecting to Claude.';out.prepend(c);}
+  btn.disabled=false;btn.innerHTML='Ask Claude';
+}
+function qa(q){g('qin').value=q;askC();}
+
+function exportXLSX(){
+  const s=ST;if(!s.nm)return;
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['AGWANE CAPITAL — LBO ANALYSIS'],[''],['Company',s.nm],['Date',new Date().toLocaleDateString()],[''],['DEAL METRICS','BWP M'],['Entry EV',f(s.EV,1)],['Entry EV/EBITDA',f(s.em,1)+'x'],['LTM Revenue',f(s.rv,1)],['LTM EBITDA',f(s.eb,1)],['EBITDA Margin',fp(s.mg)],[''],['CAPITAL STRUCTURE','BWP M','% of Total'],['Senior Debt',f(s.SD,1),f(s.SD/s.tot*100,1)+'%'],['Mezzanine',f(s.MD,1),f(s.MD/s.tot*100,1)+'%'],['Sponsor Equity',f(s.eq,1),f(s.eq/s.tot*100,1)+'%'],['Total',f(s.tot,1),'100%'],[''],['RETURNS','IRR','MOIC'],['Bear',fp(s.scens.Bear.irr),fx(s.scens.Bear.moic)],['Base',fp(s.scens.Base.irr),fx(s.scens.Base.moic)],['Bull',fp(s.scens.Bull.irr),fx(s.scens.Bull.moic)]]),'Summary');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Income Statement','Entry',...[1,2,3,4,5].map(y=>`Year ${y}`)],['Revenue (BWP M)',...s.projs.map(p=>+p.r.toFixed(1))],['EBITDA (BWP M)',...s.projs.map(p=>+p.e.toFixed(1))],['EBITDA Margin',...s.projs.map(p=>fp(p.m))],['EBIT (BWP M)',...s.projs.map(p=>+p.ebit.toFixed(1))],['Interest','n/a',...s.ds.map(d=>+d.tI.toFixed(1))],['Net Income','n/a',...s.ds.map(d=>+d.ni.toFixed(1))],['FCF','n/a',...s.ds.map(d=>+d.fcf.toFixed(1))]]),'Projections');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Debt Schedule',...[1,2,3,4,5].map(y=>`Year ${y}`)],['Senior EOP',...s.ds.map(d=>+d.sB.toFixed(1))],['Mezz EOP',...s.ds.map(d=>+d.mB.toFixed(1))],['Total Debt EOP',...s.ds.map(d=>+d.tD.toFixed(1))],['FCF',...s.ds.map(d=>+d.fcf.toFixed(1))],['Net Debt/EBITDA',...s.ds.map(d=>+((d.tD/d.e).toFixed(2)))]]),'Debt Schedule');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Returns','Bear','Base','Bull'],['Exit Multiple',...Object.values(s.scens).map(sc=>f(sc.m,1)+'x')],['Exit EV (BWP M)',...Object.values(s.scens).map(sc=>+sc.ev.toFixed(1))],['Equity Proceeds (BWP M)',...Object.values(s.scens).map(sc=>+sc.proc.toFixed(1))],['MOIC',...Object.values(s.scens).map(sc=>fx(sc.moic))],['IRR',...Object.values(s.scens).map(sc=>fp(sc.irr))]]),'Returns');
+  XLSX.writeFile(wb,`${s.nm.replace(/\s+/g,'_')}_LBO_AGWANE.xlsx`);
+}
+
+async function exportDOCX(){
+  const s=ST;if(!s.nm)return;
+  const btn=g('wbtn');btn.disabled=true;btn.textContent='Generating…';
+  const xe=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const NAV='1B3A5C',GOL='B8882E',WHI='FFFFFF',GRY='EEF2F8',ALT='F8F9FC';
+  const W=10080;
+  const P=(text,{b=false,sz=22,col='333333',after=80,center=false}={})=>
+    `<w:p><w:pPr><w:jc w:val="${center?'center':'left'}"/><w:spacing w:after="${after}"/></w:pPr><w:r><w:rPr>${b?'<w:b/>':''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:color w:val="${col}"/></w:rPr><w:t xml:space="preserve">${xe(text)}</w:t></w:r></w:p>`;
+  const PB=()=>`<w:p><w:r><w:br w:type="page"/></w:r></w:p>`;
+  const TC=(text,{w=2268,b=false,bg='',col='333333',right=false,sz=18}={})=>
+    `<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>${bg?`<w:shd w:val="clear" w:color="auto" w:fill="${bg}"/>`:''}
+</w:tcPr><w:p><w:pPr><w:jc w:val="${right?'right':'left'}"/><w:spacing w:after="0"/></w:pPr><w:r><w:rPr>${b?'<w:b/>':''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:color w:val="${col}"/></w:rPr><w:t xml:space="preserve">${xe(text)}</w:t></w:r></w:p></w:tc>`;
+  const TR=cells=>`<w:tr>${cells}</w:tr>`;
+  const TBL=(rows,tw=W)=>`<w:tbl><w:tblPr><w:tblW w:w="${tw}" w:type="dxa"/><w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/><w:left w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/><w:right w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/></w:tblBorders></w:tblPr>${rows}</w:tbl>`;
+  const SP=()=>P(' ',{sz:10,after:0});
+
+  let body='';
+  body+=P(' ',{sz:28,after:160});
+  body+=P('◆  AGWANE CAPITAL',{b:true,sz:28,col:NAV,center:true,after:30});
+  body+=P('INVESTMENT ANALYSIS',{b:true,sz:40,col:NAV,center:true,after:30});
+  body+=P('Leveraged Buyout',{sz:24,col:'666666',center:true,after:180});
+  body+=P(s.nm.toUpperCase(),{b:true,sz:32,col:GOL,center:true,after:30});
+  body+=P(`Entry EV: BWP ${f(s.EV,0)}M  ·  ${f(s.em,1)}× EV/EBITDA`,{sz:20,col:'777777',center:true,after:30});
+  body+=P(new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),{sz:18,col:'999999',center:true,after:0});
+  body+=PB();
+
+  body+=P('1.  DEAL OVERVIEW',{b:true,sz:28,col:NAV,after:100});
+  const ov=[['Company',s.nm],['Sector','Manufacturing'],['Market','Botswana / SADC'],['Entry EV',`BWP ${f(s.EV,0)}M`],['Entry EV/EBITDA',`${f(s.em,1)}×`],['LTM Revenue',`BWP ${f(s.rv,0)}M`],['LTM EBITDA',`BWP ${f(s.eb,0)}M`],['EBITDA Margin',fp(s.mg)],['Senior Debt',`BWP ${f(s.SD,0)}M @ ${fp(s.sr)}`],['Mezzanine',`BWP ${f(s.MD,0)}M @ ${fp(s.mr)}`],['Equity Check',`BWP ${f(s.eq,0)}M`],['Total Debt / EBITDA',fx(s.TD/s.eb)],['Exit Year',`Year ${s.xy}`]];
+  body+=TBL(TR(TC('Metric',{w:3600,b:true,bg:NAV,col:WHI,sz:18})+TC('Value',{w:6480,b:true,bg:NAV,col:WHI,sz:18}))+ov.map(([l,v],i)=>TR(TC(l,{w:3600,bg:i%2===0?GRY:ALT,sz:18})+TC(v,{w:6480,bg:i%2===0?GRY:ALT,sz:18,right:true}))).join(''));
+  body+=SP();body+=SP();
+
+  body+=P('2.  SOURCES & USES',{b:true,sz:28,col:NAV,after:100});
+  const suR=[['Senior Debt (Term Loan B)',`BWP ${f(s.SD,0)}M`,`${f(s.SD/s.tot*100,0)}%`],['Mezzanine Note',`BWP ${f(s.MD,0)}M`,`${f(s.MD/s.tot*100,0)}%`],['Sponsor Equity',`BWP ${f(s.eq,0)}M`,`${f(s.eq/s.tot*100,0)}%`],['TOTAL SOURCES',`BWP ${f(s.tot,0)}M`,'100%'],['Purchase Price (EV)',`BWP ${f(s.EV,0)}M`,`${f(s.EV/s.tot*100,0)}%`],['Transaction Fees (2%)',`BWP ${f(s.txF,0)}M`,`${f(s.txF/s.tot*100,0)}%`],['Financing Fees (1.5%)',`BWP ${f(s.finF,0)}M`,`${f(s.finF/s.tot*100,0)}%`],['TOTAL USES',`BWP ${f(s.tot,0)}M`,'100%']];
+  const totr=new Set([3,7]);
+  body+=TBL(TR(TC('Item',{w:5040,b:true,bg:NAV,col:WHI,sz:18})+TC('Amount',{w:2520,b:true,bg:NAV,col:WHI,sz:18,right:true})+TC('%',{w:2520,b:true,bg:NAV,col:WHI,sz:18,right:true}))+suR.map(([l,v,p],i)=>TR(TC(l,{w:5040,b:totr.has(i),bg:totr.has(i)?'D8E4F0':i%2===0?GRY:ALT,sz:18,col:totr.has(i)?NAV:'333333'})+TC(v,{w:2520,b:totr.has(i),bg:totr.has(i)?'D8E4F0':i%2===0?GRY:ALT,sz:18,right:true,col:totr.has(i)?NAV:'333333'})+TC(p,{w:2520,b:totr.has(i),bg:totr.has(i)?'D8E4F0':i%2===0?GRY:ALT,sz:18,right:true,col:totr.has(i)?NAV:'333333'}))).join(''));
+  body+=PB();
+
+  body+=P('3.  FINANCIAL PROJECTIONS (BWP M)',{b:true,sz:28,col:NAV,after:100});
+  const pLW=2520,pCW=1260;
+  const pLabs=['Revenue','EBITDA','EBITDA Margin','EBIT','Interest Expense','Net Income','Free Cash Flow'];
+  const pDat=[[f(s.projs[0].r),...s.ds.map(d=>f(d.r))],[f(s.projs[0].e),...s.ds.map(d=>f(d.e))],[fp(s.projs[0].m),...s.ds.map(d=>fp(d.m))],[f(s.projs[0].ebit),...s.ds.map(d=>f(d.ebit))],['—',...s.ds.map(d=>f(d.tI))],['—',...s.ds.map(d=>f(d.ni))],['—',...s.ds.map(d=>f(d.fcf))]];
+  body+=TBL(TR(TC('Metric',{w:pLW,b:true,bg:NAV,col:WHI,sz:16})+['Entry','Yr 1','Yr 2','Yr 3','Yr 4','Yr 5'].map(y=>TC(y,{w:pCW,b:true,bg:NAV,col:WHI,sz:16,right:true})).join(''))+pLabs.map((l,i)=>TR(TC(l,{w:pLW,bg:i%2===0?GRY:ALT,sz:16})+pDat[i].map(v=>TC(v,{w:pCW,bg:i%2===0?GRY:ALT,sz:16,right:true})).join(''))).join(''));
+  body+=SP();body+=SP();
+
+  body+=P('4.  RETURNS ANALYSIS',{b:true,sz:28,col:NAV,after:100});
+  const rtR=[['Exit EV/EBITDA',...Object.values(s.scens).map(sc=>f(sc.m,1)+'×')],['Exit EV (BWP M)',...Object.values(s.scens).map(sc=>f(sc.ev,0))],['Remaining Debt (BWP M)',f(s.xDt,0),f(s.xDt,0),f(s.xDt,0)],['Equity Proceeds (BWP M)',...Object.values(s.scens).map(sc=>f(sc.proc,0))],['MOIC',...Object.values(s.scens).map(sc=>fx(sc.moic))],['IRR',...Object.values(s.scens).map(sc=>fp(sc.irr))]];
+  const irrRow=new Set([5]);
+  body+=TBL(TR(TC('Metric',{w:3780,b:true,bg:NAV,col:WHI,sz:18})+['Bear Case','Base Case','Bull Case'].map(sc=>TC(sc,{w:2100,b:true,bg:NAV,col:WHI,sz:18,right:true})).join(''))+rtR.map(([l,...vals],i)=>TR(TC(l,{w:3780,b:irrRow.has(i),bg:irrRow.has(i)?'D8E4F0':i%2===0?GRY:ALT,sz:18,col:irrRow.has(i)?NAV:'333333'})+vals.map(v=>TC(v,{w:2100,b:irrRow.has(i),bg:irrRow.has(i)?'D8E4F0':i%2===0?GRY:ALT,sz:18,right:true,col:irrRow.has(i)?NAV:'333333'})).join(''))).join(''));
+
+  if(memo&&memo.length>50&&!memo.startsWith('Error')){
+    body+=PB();
+    body+=P('5.  INVESTMENT MEMORANDUM',{b:true,sz:28,col:NAV,after:120});
+    memo.split('\n').forEach(line=>{
+      const t=line.trim();if(!t){body+=P(' ',{sz:8,after:20});return;}
+      const isH=/^[A-Z][A-Z\s&\-]+$/.test(t)&&t.length>=5&&t.length<=45;
+      body+=P(t,isH?{b:true,sz:22,col:NAV,after:60}:{sz:20,col:'333333',after:80});
+    });
+  }
+
+  body+=SP();
+  body+=P(`AGWANE Capital Inc.  ·  Confidential  ·  ${new Date().toLocaleDateString()}`,{sz:16,col:'AAAAAA',center:true,after:0});
+
+  const docXML=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+<w:body>
+${body}
+<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1080" w:right="1080" w:bottom="1080" w:left="1080" w:header="720" w:footer="720"/></w:sectPr>
+</w:body>
+</w:document>`;
+
+  const ct=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/></Types>`;
+  const rr=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`;
+  const dr=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/></Relationships>`;
+  const st=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr></w:rPrDefault></w:docDefaults><w:style w:type="paragraph" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>`;
+  const se=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:defaultTabStop w:val="720"/></w:settings>`;
+
+  try{
+    const zip=new JSZip();
+    zip.file('[Content_Types].xml',ct);
+    zip.folder('_rels').file('.rels',rr);
+    const word=zip.folder('word');
+    word.file('document.xml',docXML);
+    word.file('styles.xml',st);
+    word.file('settings.xml',se);
+    word.folder('_rels').file('document.xml.rels',dr);
+    const blob=await zip.generateAsync({type:'blob'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;
+    a.download=`${s.nm.replace(/\s+/g,'_')}_LBO_AGWANE.docx`;
+    document.body.appendChild(a);a.click();
+    document.body.removeChild(a);URL.revokeObjectURL(url);
+  }catch(e){alert('Word export error: '+e.message);}
+  btn.disabled=false;btn.textContent='⬇ Word';
+  btn.innerHTML='<i class="ti ti-file-word" aria-hidden="true"></i> Word';
+}
+
+rc();
+</script>
