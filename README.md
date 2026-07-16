@@ -2,7 +2,7 @@
 
 > Tool 1 of 5 · AGWANE Capital PE Portfolio
 
-**Live demo:** https://spocha27.github.io/agwane-Agwane-lbo-model
+**Live demo:** https://spocha27.github.io/Agwane-lbo-model
 
 ## What it does
 Interactive leveraged buyout model built in vanilla JS/Chart.js.
@@ -17,4 +17,4 @@ Interactive leveraged buyout model built in vanilla JS/Chart.js.
 Vanilla JS · Chart.js · Anthropic API (claude-sonnet-4-6) · SheetJS · JSZip
 
 ## Part of the AGWANE Capital PE Toolkit
-→ Full portfolio: https://spocha27.github.io/agwane-pe-toolkit
+→ Full portfolio: https://spocha27.github.io/AGWANE-Capital-PE-Toolkit
